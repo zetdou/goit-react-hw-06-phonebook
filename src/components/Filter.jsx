@@ -2,9 +2,16 @@ import React from "react";
 import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 import styles from "../styles/ContactForm.module.css";
+import { useDispatch } from "react-redux";
+import { setFilter } from "../redux/slices/filterSlice";
 
-const Filter = ({ filter, onChange }) => {
+const Filter = ({ filter }) => {
   const searchId = nanoid();
+  const dispatch = useDispatch();
+
+  const handleFilterChange = (ev) => {
+    dispatch(setFilter(ev.currentTarget.value));
+  };
 
   return (
     <div className={styles.filterContainer}>
@@ -17,7 +24,7 @@ const Filter = ({ filter, onChange }) => {
         id={searchId}
         name="filter"
         value={filter}
-        onChange={onChange}
+        onChange={handleFilterChange}
       />
     </div>
   );
